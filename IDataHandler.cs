@@ -6,17 +6,19 @@ namespace ЛР_1_консоль
 {
     public interface IDataHandler
     {
-        //public ProductData LoadProduct(string path, int position);
+        public ProductData ParseLineToProduct(string line);
+
+        public string ParseProductToLine(ProductData product);
 
         public List<ProductData> LoadAll(string path);
 
         public ProductData LoadByNumber(string path, int position);
 
-        public void SaveProduct();
+        public void SaveProduct(string path, ProductData product);
 
-        public void SaveAll();
+        public void SaveAllProducts(string path, List<ProductData> allProduct);
 
-        public void DeleteProduct();
+        public void DeleteProduct(string path, ProductData product);
 
     }
 
