@@ -14,14 +14,14 @@ namespace ЛР_1_консоль
             dataHandler = new CSVDataHandler(';');
         }
 
-        public string SetAndCheckPath(string path)
+        public bool SetAndCheckPath(string path)
         {
             if (File.Exists(path) && System.IO.Path.GetExtension(path) == ".csv")
             {
                 Path = path;
-                return ("Выбран файл " + System.IO.Path.GetFileName(path));
+                return true;
             }
-            else return "Неверно введён путь до файла.";
+            else return false;
         }
         public string GetString(List<string> fields, int pos = 1)
         {
@@ -50,6 +50,10 @@ namespace ЛР_1_консоль
         public void SaveNewData(List<string> productData)
         {
             dataHandler.SaveProduct(Path, dataHandler.ParseTextToProduct(productData));
+        }
+        public void DeleteData(int position)
+        {
+            dataHandler.DeleteProduct(Path, position);
         }
 
     }

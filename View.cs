@@ -14,8 +14,7 @@ namespace ЛР_1_консоль
         static void GreetUser()
         {
             ResetConsole();
-            Console.WriteLine("Давайте начнём работу с DataHandler! " +
-                "Какой файл вы хотите открыть?");
+            Console.WriteLine("Давайте начнём работу с DataHandler!\n");
         }
         static void PrintMenu()
         {
@@ -25,8 +24,7 @@ namespace ЛР_1_консоль
             "1. Вывести все строки файла. " + '\n' +
             "2. Вывести запись по номеру." + '\n' +
             "3. Записать новые данные в файл." + '\n' +
-            "4. Удалить записи из файла." + '\n' +
-            "5. Изменить записи в файле" + '\n' +
+            "4. Удалить запись из файла." + '\n' +
             "esc. Завершить работу." + '\n');
         }
         static void PrintByNumber(Controller controller)
@@ -68,9 +66,30 @@ namespace ЛР_1_консоль
         }
         static void ChangePath(Controller controller)
         {
-            Console.WriteLine(controller.SetAndCheckPath(Console.ReadLine()));
+            Console.WriteLine("Введите путь до файла:");
+            if (controller.SetAndCheckPath(Console.ReadLine()))
+            {
+                Console.WriteLine("Выбран файл " + Path.GetFileName(controller.Path));
+            }
+            else Console.WriteLine("Неверно введён путь или файд не существует.");
+            
         }
-
+        static void DeleteData(Controller controller)
+        {
+            Console.WriteLine("Введите номер строки для удаления: ");
+            try
+            {
+                int pos = int.Parse(Console.ReadLine());
+                controller.DeleteData(pos);
+                ResetConsole();
+                Console.WriteLine($"Запись по номеру {pos} удалена!\n");
+            }
+            catch
+            {
+                Console.WriteLine("Ввод некорректен или такой строки нет в файле!\n");
+            }
+        }
+        
         static void ProcessUserAction(Controller controller)
         {
             switch (Console.ReadKey(true).Key)
@@ -83,8 +102,10 @@ namespace ЛР_1_консоль
                 case ConsoleKey.D1: 
                 case ConsoleKey.NumPad1:
                     ResetConsole();
+                    Console.WriteLine(Graphics.GetLine());
                     Console.WriteLine(Path.GetFileName(controller.Path) + ':');
                     controller.GetFullData().ForEach(Console.WriteLine);
+                    Console.WriteLine(Graphics.GetLine() + '\n');
                     break;
                 case ConsoleKey.D2:
                 case ConsoleKey.NumPad2:
@@ -96,12 +117,18 @@ namespace ЛР_1_консоль
                     ResetConsole();
                     SaveNewData(controller);
                     break;
+                case ConsoleKey.D4:
+                case ConsoleKey.NumPad4:
+                    DeleteData(controller);
+                    break;
                 case ConsoleKey.Escape:
+                    Console.Clear();
+                    Console.WriteLine(Graphics.GetExit());
                     Environment.Exit(0);
                     break;
 
                 default: 
-                    Console.WriteLine("Неверный ввод. Введите цифру 1-5.");
+                    Console.WriteLine("Неверный ввод. Введите цифру 1-5.\n");
                     break;
             }
         }

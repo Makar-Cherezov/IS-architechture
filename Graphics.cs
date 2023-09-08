@@ -9,7 +9,7 @@ namespace ЛР_1_консоль
     {
         public static string Logo { get; set; }
         public static string Exit { get; set; }
-        public static string DatabaseDecor { get; set; }
+        public static string Line { get; set; }
         
         public static string GetLogo()
         {
@@ -21,6 +21,11 @@ namespace ЛР_1_консоль
         {
             Exit = File.ReadAllText(@"C:\Учёба\Архитектура ИС\ЛР 1\ЛР 1 консоль\ExitText.txt");
             return Exit;
+        }
+        public static string GetLine()
+        {
+            Line = File.ReadAllText(@"C:\Учёба\Архитектура ИС\ЛР 1\ЛР 1 консоль\Line.txt");
+            return Line;
         }
             
     }

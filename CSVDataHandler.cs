@@ -71,10 +71,20 @@ namespace ЛР_1_консоль
                 
             }
         }
-        public void DeleteProduct(string path, ProductData product)
+        public void DeleteProduct(string path, ProductData product) // можно сделать удаление по слову
         {
             File.WriteAllLines(path, 
                 File.ReadLines(path).Where(l => l != ParseProductToLine(product)).ToList());
         }
+        public void DeleteProduct(string path, int position)
+        {
+            Exception ex = new Exception();
+            List<string> dataList = File.ReadLines(path).ToList();
+            if (position < 1 || dataList.Count() < position)
+            { throw ex; }
+            File.WriteAllLines(path,
+                File.ReadLines(path).Where((line, index) => index != position - 1).ToList());
+        }
+
     }
 }
