@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ЛР_1_консоль
 {
-    public class ProductData
+    public class ProductData : IDataStructure
     {
         public string ProductName { get; set; }
         public string SellerName { get; set; }
@@ -21,6 +21,17 @@ namespace ЛР_1_консоль
             Price = price;
             IsAvailable = isAvailable;
             DateOfUpdating = date;
+        }
+        public List<string> GetPrintableStrings()
+        {
+            List<string> fields = new List<string>();
+            fields.Add(ProductName);
+            fields.Add(SellerName);
+            fields.Add(ProductDescription);
+            fields.Add(Price.ToString());
+            fields.Add(IsAvailable.ToString());
+            fields.Add(DateOfUpdating.ToString());
+            return fields;
         }
     }
 }

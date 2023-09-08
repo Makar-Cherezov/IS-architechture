@@ -7,19 +7,34 @@ using Microsoft.VisualBasic.FileIO;
 
 namespace ЛР_1_консоль
 {
-    class CSVDataHandler : IDataHandler
+    public class CSVDataHandler : IDataSaver, IDataLoader, IDataParser
     {
-        public ProductData ParseLineToProduct(string line)
+        char Delimeter { get; set; }
+        public CSVDataHandler(char delimeter)
         {
-            string[] fields = line.Split(',');
-            return new ProductData(fields[0], fields[1], fields[2],
-                            float.Parse(fields[3]), bool.Parse(fields[4]), DateTime.Parse(fields[5])));
+            Delimeter = delimeter;
         }
-
+        public ProductData ParseTextToProduct(string line)
+        {
+            string[] fields = line.Split(Delimeter);
+            return new ProductData(fields[0], 
+                fields[1], fields[2],
+                            float.Parse(fields[3]), bool.Parse(fields[4]), DateTime.Parse(fields[5]));
+        }
+        public ProductData ParseTextToProduct(List<string> fields)
+        {
+            return new ProductData(fields[0],
+                fields[1], fields[2],
+                            float.Parse(fields[3]), bool.Parse(fields[4]), DateTime.Parse(fields[5]));
+        }
         public string ParseProductToLine(ProductData product)
         {
-            string line = product.ProductName + product.SellerName + product.ProductDescription +
-                product.Price.ToString() + product.IsAvailable.ToString() + product.DateOfUpdating.ToString();
+            string line = product.ProductName + Delimeter +
+                product.SellerName + Delimeter +
+                product.ProductDescription + Delimeter +
+                product.Price.ToString() + Delimeter +
+                product.IsAvailable.ToString() + Delimeter +
+                product.DateOfUpdating.ToString();
             return line;
         }
 
@@ -29,29 +44,29 @@ namespace ЛР_1_консоль
             string[] lines = File.ReadAllLines(path);
             foreach (string line in lines)
             {
-                allProducts.Add(ParseLineToProduct(line));
+                allProducts.Add(ParseTextToProduct(line));
             }
             return allProducts;
         }
         public ProductData LoadByNumber(string path, int position)
         {
             string line = File.ReadLines(path).Skip(position - 1).First();
-            return ParseLineToProduct(line);
+            return ParseTextToProduct(line);
         }
         public void SaveProduct(string path, ProductData product)
         {
-            using (var sw = new StreamWriter(path))
+            using (var streamWriter = new StreamWriter(path, append: true))
             {
-                sw.WriteLine(ParseProductToLine(product), true);
+                streamWriter.WriteLine(ParseProductToLine(product));
             }
         }
         public void SaveAllProducts(string path, List<ProductData> allProducts)
         {
-            using (var sw = new StreamWriter(path))
+            using (var streamWriter = new StreamWriter(path))
             {
                 foreach (var product in allProducts)
                 {
-                    sw.WriteLine(ParseProductToLine(product), true);
+                    streamWriter.WriteLine(ParseProductToLine(product), true);
                 }
                 
             }
