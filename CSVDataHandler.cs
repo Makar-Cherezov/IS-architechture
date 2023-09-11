@@ -78,10 +78,9 @@ namespace ЛР_1_консоль
         }
         public void DeleteProduct(string path, int position)
         {
-            Exception ex = new Exception();
             List<string> dataList = File.ReadLines(path).ToList();
             if (position < 1 || dataList.Count() < position)
-            { throw ex; }
+            { throw new Exception(); }
             File.WriteAllLines(path,
                 File.ReadLines(path).Where((line, index) => index != position - 1).ToList());
         }

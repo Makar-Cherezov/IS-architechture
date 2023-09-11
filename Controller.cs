@@ -49,6 +49,7 @@ namespace ЛР_1_консоль
         }
         public void SaveNewData(List<string> productData)
         {
+
             dataHandler.SaveProduct(Path, dataHandler.ParseTextToProduct(productData));
         }
         public void DeleteData(int position)

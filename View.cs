@@ -55,8 +55,15 @@ namespace ЛР_1_консоль
             productData.Add(Console.ReadLine());
             Console.WriteLine("Введите описание товара: ");
             productData.Add(Console.ReadLine());
-            Console.WriteLine("Введите стоимость товара, используйте запятую для отделения десятичной части: ");
-            productData.Add(Console.ReadLine());
+            
+            string price = "";
+            while(!Validator.IsCorrectPrice(price))
+            {
+                Console.WriteLine("Введите стоимость товара, используйте запятую для отделения десятичной части: ");
+                price = Console.ReadLine();
+            }
+            productData.Add(price);
+
             Console.WriteLine("Есть ли товар в наличии? true/false: ");
             productData.Add(Console.ReadLine());
             Console.WriteLine("Введите дату появления товара в формате дд.мм.гггг: ");
@@ -137,7 +144,6 @@ namespace ЛР_1_консоль
             Controller controller = new Controller();
             GreetUser();
             ChangePath(controller);
-            ConsoleKeyInfo cki;
             do
             {
                 PrintMenu();
