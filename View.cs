@@ -148,9 +148,7 @@ namespace ЛР_1_консоль
             {
                 PrintMenu();
                 ProcessUserAction(controller);
-            } while (true);
-            
-            
+            } while (true);         
             
         }
     }
