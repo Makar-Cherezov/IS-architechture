@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualBasic.FileIO;
 
-namespace ЛР_1_консоль
+namespace Server
 {
     public class CSVDataHandler : IDataSaver, IDataLoader, IDataParser
     {

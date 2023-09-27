@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ЛР_1_консоль
+namespace Server
 {
     public interface IDataLoader
     {

@@ -6,4 +6,8 @@
     <RootNamespace>ЛР_1_консоль</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\NetConnection\NetConnection.csproj" />
+  </ItemGroup>
+
 </Project>

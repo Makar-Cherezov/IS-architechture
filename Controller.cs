@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 
-namespace ЛР_1_консоль
+namespace Server
 {
     public class Controller
     {
         public string Path { get; set; }
         public CSVDataHandler dataHandler { get; set; }
-        public Controller()
+        public Controller(char delim)
         {
-            dataHandler = new CSVDataHandler(';');
+            dataHandler = new CSVDataHandler(delim);
         }
 
         public bool SetAndCheckPath(string path)
